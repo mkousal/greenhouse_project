@@ -20,6 +20,4 @@
 #define RELAY_DDR_PORT DDRD
 #define RELAY_PORT PORTD
 
-#define DHT12_ADDR 92
-
 #endif /* DEFINES_H_ */

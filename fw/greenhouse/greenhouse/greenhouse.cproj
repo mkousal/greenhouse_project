@@ -136,6 +136,12 @@
     <Compile Include="defines.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="dht.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="dht.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="gpio.c">
       <SubType>compile</SubType>
     </Compile>
