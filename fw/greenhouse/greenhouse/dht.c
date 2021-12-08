@@ -10,9 +10,10 @@
 
 int DHT_getTemperature()
 {
-	uint8_t res = twi_start((DHT12_ADDR << 1) + TWI_WRITE);
-	uint8_t temp_H, temp_L = 0;
-	if (res == 0)
+	uint8_t res = twi_start((DHT12_ADDR << 1) + TWI_WRITE);	// Start I2C communication
+	uint8_t temp_H = 0;										// Init data variables
+	uint8_t temp_L = 0;
+	if (res == 0)		// If I2C device answer, get data
 	{
 		twi_write(2);
 		twi_start((DHT12_ADDR << 1) + TWI_READ);
@@ -21,23 +22,22 @@ int DHT_getTemperature()
 		twi_stop();
 		uint8_t tmp = temp_L;
 		temp_L &= 0x7F;	// Set MSB to '0'
-		if (temp_L > 4)	// Round up decimal place
+		if (temp_L > 4)	// Round up decimal place to nearest integer
 			temp_H++;
 
 		if ((tmp & 0x80) != 0)	// Negative temperature
-		{
 			temp_H *= -1;
-		}
 	}
 	
-	return temp_H;
+	return temp_H;	// Return result
 }
 
-int DHT_getHumidity()
+uint8_t DHT_getHumidity()
 {
-	uint8_t res = twi_start((DHT12_ADDR << 1) + TWI_WRITE);
-	uint8_t hum_H, hum_L;
-	if (res == 0)
+	uint8_t res = twi_start((DHT12_ADDR << 1) + TWI_WRITE);	// Start I2C communication
+	uint8_t hum_H = 0;
+	uint8_t hum_L = 0;									// Initialize data variables
+	if (res == 0)										// If I2C device answer, get data
 	{
 		twi_write(0);
 		twi_start((DHT12_ADDR << 1) + TWI_READ);
@@ -45,5 +45,8 @@ int DHT_getHumidity()
 		hum_L = twi_read_nack();
 		twi_stop();
 	}
+	if (hum_L > 4)	// Round result to the nearest integer
+		hum_H++;
 	
+	return hum_H;	// Return result
 }

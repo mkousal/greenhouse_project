@@ -9,11 +9,13 @@
 #ifndef DHT_H_
 #define DHT_H_
 
+#include <stdio.h>
+
 #define DHT12_ADDR 92
 
 int DHT_getTemperature();
 
-int DHT_getHumidity();
+uint8_t DHT_getHumidity();
 
 
 

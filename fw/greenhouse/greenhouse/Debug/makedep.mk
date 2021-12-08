@@ -6,7 +6,11 @@ dht.c
 
 gpio.c
 
+lcd.c
+
 main.c
+
+relay.c
 
 twi.c
 

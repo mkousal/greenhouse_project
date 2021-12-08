@@ -4,42 +4,43 @@
  * Created: 24.11.2021 11:19:26
  * Author : Martin
  */ 
+#ifndef F_CPU
+# define F_CPU 16000000  // CPU frequency in Hz required for UART_BAUD_SELECT
+#endif
 
-#include <avr/io.h>
-#include "defines.h"		// Own file with project defines
-#include <avr/interrupt.h>
-#include "timer.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include "uart.h"
-#include "twi.h"
-#include <util/delay.h>
+#include <avr/io.h>				// AVR device-specific IO definitions
+#include <avr/interrupt.h>		// Interrupts standard C library for AVR-GCC
+#include <util/atomic.h>		// Safe interrupt variable operations
+#include "timer.h"				// Timer library for AVR-GCC
+#include <stdlib.h>				// C library, used for conversion functions
+#include <stdio.h>				// C library with basic functions
+#include "uart.h"				// UART library for AVR-GCC
+#include "twi.h"				// TWI (I2C) library for AVR-GCC
+#include <util/delay.h>			// AVR delay library
+#include "relay.h"				// Relay library with basic functions with relay shield
+#include "dht.h"				// DHT12 specific library with basic functions over I2C
+#include "lcd.h"				// Peter Fleury's LCD library
 
-void initRelay()
-{
-	GPIO_config_output(&RELAY_DDR_PORT, RELAY_1);
-	GPIO_config_output(&RELAY_DDR_PORT, RELAY_2);
-	GPIO_config_output(&RELAY_DDR_PORT, RELAY_3);
-	GPIO_config_output(&RELAY_DDR_PORT, RELAY_4);
-}
-
-void relayOn(uint8_t relay)
-{
-	GPIO_write_high(&RELAY_PORT, relay);
-}
-
-void relayOff(uint8_t relay)
-{
-	GPIO_write_low(&RELAY_PORT, relay);
-}
+volatile uint8_t minuteFlag = 0;
+volatile int temperature = 0;
+volatile uint8_t humidity = 0;
+volatile int soilMoisture = 0;
+volatile int lightIntensity = 0;
 
 int main(void)
 {
-	initRelay();
+	relay_init();
 	twi_init();
 	uart_init(UART_BAUD_SELECT(9600, F_CPU));
+	lcd_init(LCD_DISP_ON);
 	
-	uart_puts_P("\r\nGreenhouse M&C system started\r\n");
+	uart_puts_P("\r\nGreenhouse system started\r\n");	// Print start message to UART
+	lcd_gotoxy(5,0);									// Print starting message to LCD
+	lcd_puts("Greenhouse");
+	lcd_gotoxy(4,1);
+	lcd_puts("project");
+	_delay_ms(1000);
+	
 	
 	TIM1_overflow_4s();
 	TIM1_overflow_interrupt_enable();
@@ -48,49 +49,22 @@ int main(void)
 
     while (1) 
     {
+		if (minuteFlag == 1)	// 1 minute interval
+		{
+			minuteFlag = 0;
+			temperature = DHT_getTemperature();
+			humidity = DHT_getHumidity();
+		}
     }
 }
 
 ISR(TIMER1_OVF_vect)
 {
-// 	uint8_t res = twi_start((DHT12_ADDR << 1) + TWI_WRITE);
-// 	char tmp_str[3] = "   ";
-// 	
-// 	if (res == 0)
-// 	{
-// 		twi_write(0);
-// 		twi_start((DHT12_ADDR << 1)+TWI_READ);
-// 		uint8_t hum_H = twi_read_ack();
-// 		uint8_t hum_L = twi_read_ack();
-// 		uint8_t temp_H = twi_read_ack();
-// 		uint8_t temp_L = twi_read_nack();
-// 		twi_stop();
-// 		itoa(hum_H, tmp_str, 10);
-// 		uart_puts(tmp_str);
-// 		uart_puts(" ");
-// 		itoa(hum_L, tmp_str, 10);
-// 		uart_puts(tmp_str);
-// 		uart_puts(" ");
-// 		itoa(temp_H, tmp_str, 10);
-// 		uart_puts(tmp_str);
-// 		uart_puts(" ");
-// 		itoa(temp_L, tmp_str, 10);
-// 		uart_puts(tmp_str);
-// 		uart_puts("\r\n");
-// 	}
-// 	else
-// 		uart_puts_P("I2C err\r\n");
-
-	char tmp_str[6];
-	int tmp = DHT_getTemperature();
-	itoa(tmp, tmp_str, 10);
-	uart_puts(tmp_str);
-	if (tmp > 28)
+	static uint8_t cnt = 0;
+	cnt++;
+	if (cnt == 16)
 	{
-		relayOn(RELAY_1);
-	}
-	else
-	{
-		relayOff(RELAY_1);
+		cnt = 1;
+		minuteFlag = 1;
 	}
 }
