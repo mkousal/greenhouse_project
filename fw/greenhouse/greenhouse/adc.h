@@ -56,8 +56,12 @@
 
 #define ADC_select_channel_8()	ADMUX &= ~((1<<MUX2) | (1<<MUX1) | (1<<MUX0)); ADMUX |= (1<<MUX3);
 
+
 #define ADC_enable_conversion_complete_interrupt()		ADCSRA |= (1<<ADIE);
 
 #define ADC_disable_conversion_complete_interrupt()		ADCSRA &= ~(1<<ADIE);
+
+
+#define ADC_start()		ADCSRA |= (1<<ADSC);
 
 #endif /* ADC_H_ */

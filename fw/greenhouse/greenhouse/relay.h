@@ -9,13 +9,13 @@
 #ifndef RELAY_H_
 #define RELAY_H_
 
-#define RELAY_1 PD7		// window
-#define RELAY_2 PD6		// heater
-#define RELAY_3 PD5		// 
-#define RELAY_4 PD4		// 
+#define RELAY_1 PB2		// window
+#define RELAY_2 PB3		// heater
+#define RELAY_3 PB4		// light
+#define RELAY_4 PB5		// sprinkler
 
-#define RELAY_DDR_PORT DDRD
-#define RELAY_PORT PORTD
+#define RELAY_DDR_PORT DDRB
+#define RELAY_PORT PORTB
 
 void relay_init();
 
