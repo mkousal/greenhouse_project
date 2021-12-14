@@ -22,6 +22,15 @@
 #include "lcd.h"				// Peter Fleury's LCD library
 #include "adc.h"				// ADC library with basic functions and settings
 
+// Defines for setting your own greenhouse constants, eg. temperature, humidity, soil moisture etc.
+#define SET_TEMPERATURE_HEAT 25			// Temperature at which heater is turned on
+#define SET_TEMPERATURE_WINDOW 25		// Temperature at which window is opened
+#define SET_HUMIDITY 30					// Humidity at which is window opened
+#define SET_SOIL 50						// Soil moisture at which sprinkler is turned on
+#define CALIBRATE_SOIL_MIN 730			// Value measured on soil moisture sensor at air 
+#define CALIBRATE_SOIL_MAX 940			// Value measured on soil moisture sensor in the water
+#define SET_LIGHT 600					// Light intensity value at which light is turned on
+
 volatile uint8_t minuteFlag = 0;
 volatile int temperature = 0;
 volatile uint8_t humidity = 0;
@@ -114,24 +123,24 @@ int main(void)
 			minuteFlag = 0;		// Reset 1 minute flag
 			temperature = DHT_getTemperature();	// Get temperature from DHT12
 			humidity = DHT_getHumidity();		// Get humidity from DHT12
-			soilMoisture = map(1023 - soilMoisture, 1023 - 940, 1023 - 730, 0, 100);	// Get measured soil moisture values into 0-100%
+			soilMoisture = map(1023 - soilMoisture, 1023 - CALIBRATE_SOIL_MAX, 1023 - CALIBRATE_SOIL_MIN, 0, 100);	// Get measured soil moisture values into 0-100%
 		
-			if (lightIntensity > 600)	// Light intensity -> dark
+			if (lightIntensity > SET_LIGHT)	// Light intensity -> dark
 				relay_on(RELAY_3);		// Turn on light (relay 3)
 			else						// Light intensity -> bright
 				relay_off(RELAY_3);		// turn off light		
 				
-			if (soilMoisture < 50)		// Soil moisture below 50%
+			if (soilMoisture < SET_SOIL)		// Soil moisture below 50%
 				relay_on(RELAY_4);		// Turn on sprinkler (relay 4)
 			else						// Soil moisture > 50%	
 				relay_off(RELAY_4);		// Turn off sprinkler
 				
-			if (temperature > 25 || humidity > 30)	// If temperature > 25°C or humidity of air > 30%
+			if (temperature > SET_TEMPERATURE_WINDOW || humidity > SET_HUMIDITY)	// If temperature > 25°C or humidity of air > 30%
 				relay_on(RELAY_1);					// Open window (relay 1)
 			else									// Temperature < 25°C or humidity of air < 30%	
 				relay_off(RELAY_1);					// Close window (relay 1)
 				
-			if(temperature < 25)					// If temperature > 25°C
+			if(temperature < SET_TEMPERATURE_HEAT)					// If temperature > 25°C
 				relay_on(RELAY_2);					// Turn on heater (relay 2)
 			else									// Temperature < 25°C
 				relay_off(RELAY_2);					// Turn off heater
@@ -176,7 +185,6 @@ ISR(TIMER0_OVF_vect) // Start AD convert of soil moisture or light intensity, ev
 				break;
 		}
 	}
-	
 }
 
 ISR(ADC_vect)
