@@ -61,6 +61,7 @@ void lcdUpdate(int temperature, uint16_t soil, uint16_t light, uint16_t hum)
 void printUART(int temperature, uint16_t soil, uint16_t light, uint16_t hum)
 {
 	char tmp_str[5] = "     ";
+	uart_puts_P("Temperature: ");
 	itoa(temperature, tmp_str, 10);
 	uart_puts(tmp_str);
 	uart_putc(248);		// Degree sign
@@ -84,7 +85,7 @@ int main(void)
 {
 	relay_init();		// Set ports for relay controlling
 	twi_init();			// Initialize TWI
-	uart_init(UART_BAUD_SELECT(9600, F_CPU));	// Initialize UART with 9600 buad
+	uart_init(UART_BAUD_SELECT(9600, F_CPU));	// Initialize UART with 9600 baud
 	lcd_init(LCD_DISP_ON);		// Initialize LCD
 	
 	uart_puts_P("\r\nGreenhouse system started\r\n");	// Print start message to UART
@@ -114,7 +115,6 @@ int main(void)
 			temperature = DHT_getTemperature();	// Get temperature from DHT12
 			humidity = DHT_getHumidity();		// Get humidity from DHT12
 			soilMoisture = map(1023 - soilMoisture, 1023 - 940, 1023 - 730, 0, 100);	// Get measured soil moisture values into 0-100%
-			uart_puts_P("Temperature: ");
 		
 			if (lightIntensity > 600)	// Light intensity -> dark
 				relay_on(RELAY_3);		// Turn on light (relay 3)
