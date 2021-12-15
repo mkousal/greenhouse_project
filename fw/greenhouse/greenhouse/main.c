@@ -23,8 +23,8 @@
 #include "adc.h"				// ADC library with basic functions and settings
 
 // Defines for setting your own greenhouse constants, eg. temperature, humidity, soil moisture etc.
-#define SET_TEMPERATURE_HEAT 25			// Temperature at which heater is turned on
-#define SET_TEMPERATURE_WINDOW 25		// Temperature at which window is opened
+#define SET_TEMPERATURE_HEAT 24			// Temperature at which heater is turned on
+#define SET_TEMPERATURE_WINDOW 24		// Temperature at which window is opened
 #define SET_HUMIDITY 30					// Humidity at which is window opened
 #define SET_SOIL 50						// Soil moisture at which sprinkler is turned on
 #define CALIBRATE_SOIL_MIN 730			// Value measured on soil moisture sensor at air 
@@ -44,13 +44,13 @@ uint16_t map(uint16_t x, uint16_t in_min, uint16_t in_max, uint16_t out_min, uin
 }
 
 // Function to update LCD with new values
-void lcdUpdate(int temperature, uint16_t soil, uint16_t light, uint16_t hum)
+void lcdUpdate(int temp, uint16_t soil, uint16_t light, uint16_t hum)
 {
 	char tmp_str[4] = "    ";
 	lcd_clrscr();
 	lcd_gotoxy(0,0);
 	lcd_puts_P("T: ");
-	itoa(temperature, tmp_str, 10);
+	itoa(temp, tmp_str, 10);
 	lcd_puts(tmp_str);
 	lcd_gotoxy(0,1);
 	lcd_puts_P("H: ");
@@ -62,31 +62,30 @@ void lcdUpdate(int temperature, uint16_t soil, uint16_t light, uint16_t hum)
 	lcd_puts(tmp_str);
 	lcd_gotoxy(8, 1);
 	lcd_puts_P("L: ");
-	itoa(light, tmp_str, 10);
-	lcd_puts(tmp_str);
+	if (light > SET_LIGHT)
+		lcd_puts_P("dark");
+	else
+		lcd_puts_P("light");
 }
 
 // Function to print all measured values to UART
-void printUART(int temperature, uint16_t soil, uint16_t light, uint16_t hum)
+void printUART(int temp, uint16_t soil, uint16_t light, uint16_t hum)
 {
 	char tmp_str[5] = "     ";
 	uart_puts_P("Temperature: ");
-	itoa(temperature, tmp_str, 10);
+	itoa(temp, tmp_str, 10);
 	uart_puts(tmp_str);
-	uart_putc(248);		// Degree sign
-	uart_puts_P("C  Air humidity: ");
-	itoa(humidity, tmp_str, 10);
+	uart_puts_P(" C  Air humidity: ");
+	itoa(hum, tmp_str, 10);
 	uart_puts(tmp_str);
 	uart_puts_P("%  Soil humidity: ");
-	itoa(soilMoisture, tmp_str, 10);
+	itoa(soil, tmp_str, 10);
 	uart_puts(tmp_str);
 	uart_puts_P("%  Light: ");
-	if (lightIntensity > 600)
-	uart_puts_P("dark");
+	if (light > SET_LIGHT)
+		uart_puts_P("dark");
 	else
-	uart_puts_P("light");
-	itoa(lightIntensity, tmp_str, 10);
-	uart_puts(tmp_str);
+		uart_puts_P("light");
 	uart_puts_P("\r\n");
 }
 
@@ -98,7 +97,7 @@ int main(void)
 	lcd_init(LCD_DISP_ON);		// Initialize LCD
 	
 	uart_puts_P("\r\nGreenhouse system started\r\n");	// Print start message to UART
-	lcd_gotoxy(5,0);									// Print starting message to LCD
+	lcd_gotoxy(2,0);									// Print starting message to LCD
 	lcd_puts("Greenhouse");
 	lcd_gotoxy(4,1);
 	lcd_puts("project");
@@ -140,7 +139,7 @@ int main(void)
 			else									// Temperature < 25°C or humidity of air < 30%	
 				relay_off(RELAY_1);					// Close window (relay 1)
 				
-			if(temperature < SET_TEMPERATURE_HEAT)					// If temperature > 25°C
+			if(temperature < SET_TEMPERATURE_HEAT)	// If temperature > 25°C
 				relay_on(RELAY_2);					// Turn on heater (relay 2)
 			else									// Temperature < 25°C
 				relay_off(RELAY_2);					// Turn off heater
@@ -192,6 +191,6 @@ ISR(ADC_vect)
 	uint16_t adc = ADC;
 	if ((ADMUX & 0x03) == 3)	// Soil moisture sensor
 		soilMoisture = adc;
-	else	// Light intensity sensor
+	else						// Light intensity sensor
 		lightIntensity = adc;
 }
