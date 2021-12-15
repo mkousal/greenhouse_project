@@ -101,10 +101,29 @@ Vygenerovaný `.hex` soubor je k dispozici po kliknutí [zde](https://github.com
 
 ## Flowcharty
 
+Hlavní funkce.
+
 ![Flow_1](images/flow_1.svg)
 
 
+
+Ke spuštění funkce dojde každých 8 sekund.
+
+![Flow_4](images/flow_4.svg)
+
+
+
+Každých 160 ms dojde k zapnutí ADC kanálu.
+
 ![Flow_2](images/flow_2.svg)
+
+
+
+Když je dokončený převod dojde ke spuštění této funkce.
+
+![Flow_3](images/flow_3.svg)
+
+
 
 <a name="video"></a>
 
