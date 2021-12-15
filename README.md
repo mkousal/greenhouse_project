@@ -21,9 +21,10 @@ Odkaz na GitHub repozitář:
     - [Schéma zapojení](#schéma-zapojení)
   - [Popis knihoven](#popis-knihoven)
   - [Hlavní aplikace](#hlavní-aplikace)
+    - [Zdrojové soubory](#zdrojové-soubory)
   - [Flowcharty](#flowcharty)
   - [Video](#video)
-  - [Reference](#reference)
+  - [Reference na použité programy a dokumenty](#reference-na-použité-programy-a-dokumenty)
 
 <a name="objectives"></a>
 
@@ -92,6 +93,10 @@ Doporučujeme zkalibrovat před použitím veškeré senzory, jelikož hodnoty j
 
 ![defines](images/defines.png)
 
+### Zdrojové soubory
+
+Celá aplikace se skládá z hlavního `main.c` souboru a již dříve zmíněných knihoven. Celý projekt a všechny tyto soubory lze nalézt v repozitáři po kliknutí [zde](https://github.com/mkousal/greenhouse_project/tree/main/fw/greenhouse/greenhouse).
+
 ## Flowcharty
 
 ![Flow_1](images/flow_1.svg)
@@ -103,12 +108,13 @@ Doporučujeme zkalibrovat před použitím veškeré senzory, jelikož hodnoty j
 
 ## Video
 
-Ve videu jsme použili hodnoty tak, aby se nám dobře demonstrovala funkčnost zařízení.
+Ve videu jsme použili hodnoty tak, aby se nám dobře demonstrovala funkčnost zařízení, takže neodpovídají reálnému nastavení použitém ve skleníku.
+
 [Video na youtube]()
 
 <a name="references"></a>
 
-## Reference
+## Reference na použité programy a dokumenty
 
 1. [Microchip studio](https://www.microchip.com/en-us/development-tools-tools-and-software/microchip-studio-for-avr-and-sam-devices)
 2. [Visual studio code](https://code.visualstudio.com/)
