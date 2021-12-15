@@ -97,6 +97,8 @@ Doporučujeme zkalibrovat před použitím veškeré senzory, jelikož hodnoty j
 
 Celá aplikace se skládá z hlavního `main.c` souboru a již dříve zmíněných knihoven. Celý projekt a všechny tyto soubory lze nalézt v repozitáři po kliknutí [zde](https://github.com/mkousal/greenhouse_project/tree/main/fw/greenhouse/greenhouse).
 
+Vygenerovaný `.hex` soubor je k dispozici po kliknutí [zde](https://github.com/mkousal/greenhouse_project/blob/main/fw/greenhouse/greenhouse/Debug/greenhouse.hex).
+
 ## Flowcharty
 
 ![Flow_1](images/flow_1.svg)
