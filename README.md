@@ -104,8 +104,9 @@ Ve videu jsme použili hodnoty tak, aby se nám dobře demonstrovala funkčnost 
 
 ## Reference
 
-1. Microchip studio
-2. Visual studio code
-3. KiCad
-4. Git
+1. [Microchip studio](https://www.microchip.com/en-us/development-tools-tools-and-software/microchip-studio-for-avr-and-sam-devices)
+2. [Visual studio code](https://code.visualstudio.com/)
+3. [KiCad](https://www.kicad.org/)
+4. [Git](https://git-scm.com/)
 5. [Zadání projektu](https://github.com/tomas-fryza/Digital-electronics-2/tree/master/Labs/project)
+6. [DaVinci resolve 17](https://www.blackmagicdesign.com/products/davinciresolve/)
