@@ -21,6 +21,7 @@ Odkaz na GitHub repozitář:
     - [Schéma zapojení](#schéma-zapojení)
   - [Popis knihoven](#popis-knihoven)
   - [Hlavní aplikace](#hlavní-aplikace)
+  - [Flowcharty](#flowcharty)
   - [Video](#video)
   - [Reference](#reference)
 
@@ -73,20 +74,25 @@ V projektu používáme:
 
 ## Hlavní aplikace
 
-Hlavní aplikace zajišťuje co nejpřívětivější podmínky pro pěstování zeleniny ve skleníku. podmínky jsou zajištěny třemi senzory zjišťující teplotu ovzduší, intenzitu světla, vlhkost vzduchu a vlhkost zeminy.
-Logika programu se řídí dle níže přiložených flowchartů. 
-Veškeré aktuální naměřené hodnoty se ukazují na LDC display pro případnou vizuální kontrolu.
+Aplikace zajišťuje co nejpřívětivější podmínky pro pěstování zeleniny ve skleníku. Podmínky jsou zajištěny třemi senzory zjišťující teplotu ovzduší, intenzitu světla, vlhkost vzduchu a vlhkost zeminy. Logika programu se řídí dle níže přiložených flowchartů. 
+Veškeré aktuální naměřené hodnoty se ukazují na LCD pro případnou vizuální kontrolu. Viz níže přiložený obrázek. Bohužel se nedařilo vyfotit ostrý text na displeji, proto není moc vidět.
+
+![LCD photo](images/display.jpg)
+
 
 K ovládání externího hardware, které zajišťuje ideální podmínky je využit relé shield se čtyřmi relé. 
-Relé 1 ovládá ventilaci, sepnutím tohoto relé dojde k otevření ventilačního okna a snížení teploty a vlhkosti ve skleníku. 
-Relé 2 ovládá ohřev ve skleníku, ohřej je využit když klesne teplota ve skleníku pod 15°C. 
-Využije se zejména k výsadbě na jaře nebo dozrávání na podzim nebo k přezimování venkovních květin.
-Relé 3 je určeno k rozsvěcování světel, jakmile klesne intenzita pod denní osvětlení, rozsvítí se výkonné zářivky, které v jisté míře dokáží nahradit sluneční záření. 
-Poslední 4 relé je využito k nejdůležitější činnosti a to k závlaze zeleniny. 
+**Relé 1** ovládá ventilaci, sepnutím tohoto relé dojde k otevření ventilačního okna a tím pádem ke snížení teploty a vlhkosti vzduchu ve skleníku. 
+**Relé 2** ovládá ohřev ve skleníku, ohřej je využit když klesne teplota ve skleníku pod 15°C. 
+Využije se zejména k výsadbě na jaře nebo dozrávání na podzim, nebo k přezimování venkovních květin.
+**Relé 3** je určeno k rozsvěcování světel, jakmile klesne intenzita pod denní osvětlení, rozsvítí se výkonné zářivky, které v jisté míře dokáží nahradit sluneční záření. 
+**Relé 4** je využito k nejdůležitější činnosti a to k závlaze zeleniny. 
 Když klesne vlhkost zeminy pod nastavenou hodnotu sepne se zavlažování a voda bude dodávána dokud vlhkost nebude na ideálních hodnotách.
 
-Doporučujeme zkalibrovat před použitím veškeré senzory, jelikož hodnoty jsou nastaveny na výchozí hodnoty a požadavky se můžou lišit pro každý skleník.
+Doporučujeme zkalibrovat před použitím veškeré senzory, jelikož hodnoty jsou nastaveny na výchozí hodnoty a požadavky se můžou lišit pro každý skleník. Nastavení všech hodnot při kterých se budou spínat jednotlivé akční prvky se provádí pomocí konstant definovaných na začátku souboru `main.c` viz obrázek níže.
 
+![defines](images/defines.png)
+
+## Flowcharty
 
 ![Flow_1](images/flow_1.svg)
 
