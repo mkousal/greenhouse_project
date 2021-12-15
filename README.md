@@ -1,4 +1,4 @@
-# greenhouse_project
+# Greenhouse project
 
 ### Členové týmu
 
@@ -82,10 +82,14 @@ Veškeré aktuální naměřené hodnoty se ukazují na LCD pro případnou vizu
 
 
 K ovládání externího hardware, které zajišťuje ideální podmínky je využit relé shield se čtyřmi relé. 
+
 **Relé 1** ovládá ventilaci, sepnutím tohoto relé dojde k otevření ventilačního okna a tím pádem ke snížení teploty a vlhkosti vzduchu ve skleníku. 
+
 **Relé 2** ovládá ohřev ve skleníku, ohřej je využit když klesne teplota ve skleníku pod 15°C. 
+
 Využije se zejména k výsadbě na jaře nebo dozrávání na podzim, nebo k přezimování venkovních květin.
 **Relé 3** je určeno k rozsvěcování světel, jakmile klesne intenzita pod denní osvětlení, rozsvítí se výkonné zářivky, které v jisté míře dokáží nahradit sluneční záření. 
+
 **Relé 4** je využito k nejdůležitější činnosti a to k závlaze zeleniny. 
 Když klesne vlhkost zeminy pod nastavenou hodnotu sepne se zavlažování a voda bude dodávána dokud vlhkost nebude na ideálních hodnotách.
 
