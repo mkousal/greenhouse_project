@@ -299,9 +299,9 @@ Wire Wire Line
 Wire Wire Line
 	3100 5700 2950 5700
 Text GLabel 2950 5500 1    50   Input ~ 0
-PC3
-Text GLabel 2750 4650 3    50   Input ~ 0
 PC2
+Text GLabel 2750 4650 3    50   Input ~ 0
+PC3
 $Comp
 L power:GND #PWR06
 U 1 1 61B706CD
@@ -509,4 +509,12 @@ F 3 "" H 2300 5550 50  0001 C CNN
 	1    2300 5550
 	1    0    0    -1  
 $EndComp
+Text Notes 7600 4350 0    50   ~ 0
+light
+Text Notes 7600 3650 0    50   ~ 0
+window
+Text Notes 7600 4000 0    50   ~ 0
+heater
+Text Notes 7600 4700 0    50   ~ 0
+sprinkler
 $EndSCHEMATC

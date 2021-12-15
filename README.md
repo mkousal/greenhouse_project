@@ -67,17 +67,17 @@ V projektu používáme:
 
 ## Hlavní aplikace
 
-Hlavní aplikace zajišťuje co nejpřívětivější podmínky pro pěstování zeleniny ve skleníku. podmínky jsou zajištěny třemi senzory zjišťující teplotu ovzduší, intenzitu světla, vlhkost vzduchu a vlhkost zeminy. Logika programu se řídí dle níže přiložených flowchartů. Veškeré aktuální naměřené hodnoty se ukazují na LDC display.
+Hlavní aplikace zajišťuje co nejpřívětivější podmínky pro pěstování zeleniny ve skleníku. podmínky jsou zajištěny třemi senzory zjišťující teplotu ovzduší, intenzitu světla, vlhkost vzduchu a vlhkost zeminy.
+Logika programu se řídí dle níže přiložených flowchartů. 
+Veškeré aktuální naměřené hodnoty se ukazují na LDC display pro případnou vyzuální knontrolu.
 
 K ovládání externího hardware, které zajišťuje ideální podmínky je využit relé shield se čtyřmi relé. 
 Relé 1 ovládá ventilaci, sepnutím tohoto relé dojde k otevření ventilačního okna a snížení teploty a vlhkosti ve skleníku. 
 Relé 2 ovládá ohřev ve skleníku, ohřej je využit když klesne teplota ve skleníku pod 15°C. 
 Využije se zejména k výsadbě na jaře nebo dozrávání na podzim nebo k přezimování venkovních květin.
-Relé 3 je určeno k rozsvěcování světel, jakmile klesne intenzita denního osvětlení pod 2000 lux, rozsvítí se výkonné zářivky, které v jisté míře dokáží nahradit sluneční záření. 
+Relé 3 je určeno k rozsvěcování světel, jakmile klesne intenzita pod dení osvětlení, rozsvítí se výkonné zářivky, které v jisté míře dokáží nahradit sluneční záření. 
 Poslední 4 relé je využito k nejdůležitejší činnosti a to k závlaze zeleniny. 
 Když klesne vlhkost zeminy pod nastavenou hodnotu sepne se zavlažování a voda bude dodávána dokud vlhkost nebude na ideálních hodnotách.
-
-Chytrý skleník nebude úplně nízkonákladový oproti klasickému skleníku co se týče spotřebované energie, ale tady jde o šťavnatost rajčátek a křupavost okurků.
 
 Doporučujeme skalibrovat před použitím veškeré senzory, jelikož hodnoty jsou nastaveny na výchozí hodnoty a požadavky se můžou lišit pro každý skleník.
 
@@ -90,10 +90,15 @@ Doporučujeme skalibrovat před použitím veškeré senzory, jelikož hodnoty j
 
 ## Video
 
-Write your text here
+Ve videu jsme použili hodnoty tak, aby se nám dobře demostrovala funčnost zařízení.
+[Video na youtube]()
 
 <a name="references"></a>
 
 ## Reference
 
-1. Write your text here.
+1. Microchip studio
+2. Visual studio code
+3. Kicad
+4. Gitbash
+5. [Zadání projektu](https://github.com/tomas-fryza/Digital-electronics-2/tree/master/Labs/project)
