@@ -38,7 +38,7 @@ Cílem projektu je navrhnout chytrý skleník, který bude za měnících se pod
 ## Popis hardware
 
 V projektu používáme:
-* Arduino UNO - mikrokontroler s AVR procesorem [Atmega283P](https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-7810-Automotive-Microcontrollers-ATmega328P_Datasheet.pdf)
+* Arduino UNO - mikrokontroler s AVR procesorem [Atmega328P](https://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-7810-Automotive-Microcontrollers-ATmega328P_Datasheet.pdf)
 * Senzor teploty a vlhkosti - [DHT12](https://robototehnika.ru/file/DHT12.pdf) komunikuje s Arduinem přes I2C sběrnici
 * Senzor vlhkosti půdy -  [capacitive soil moisture sensor v1.2](https://www.sigmaelectronica.net/wp-content/uploads/2018/04/sen0193-humedad-de-suelos.pdf) změnou kapacity (a následně napětí na něm) měří vlhkost půdy
 * Intenzita světla - [GL5539 photoresistor](https://www.kth.se/social/files/54ef17dbf27654753f437c56/GL5537.pdf) změnou odporu měří intenzitu světla
@@ -131,7 +131,7 @@ Když je dokončený převod dojde ke spuštění této funkce.
 
 Ve videu jsme použili hodnoty tak, aby se nám dobře demonstrovala funkčnost zařízení, takže neodpovídají reálnému nastavení použitém ve skleníku.
 
-[Video na youtube]()
+[Video na youtube](https://www.youtube.com/watch?v=7XwYqsf-ZBs)
 
 <a name="references"></a>
 
